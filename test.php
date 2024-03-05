@@ -5,16 +5,18 @@ const PASSWORD = "-zde dopln heslo-";
 
 
 $url = 'https://k2.schindler.cz/SWSORI/Meta/FullVersion';
+
 $hash = getAuthorizationHeader(PASSWORD, $url);
 
-$curl = curl_init();
-curl_setopt($curl, CURLOPT_URL, $url);
 $headers = [
     'Authorization' => USERNAME . ':' . $hash
 ];
 echo "--- Headers -----\n";
 var_dump($headers);
 echo "--- Headers -----\n";
+
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, $url);
 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($curl);
@@ -26,10 +28,11 @@ if ($error_no) {
     echo "\n\n\ERROR: $error_no $error_msg\n\n";
 }
 
-echo "--- cURL Info -----\n";
+echo "--- cURL Info ----\n";
 var_dump($info);
 echo "--- cURL Info -----\n";
 curl_close($curl);
+
 echo "\n\nRESPONSE: $response\n\n";
 
 
